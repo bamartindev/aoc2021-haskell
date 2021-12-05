@@ -6,15 +6,17 @@ where
 
 import Data.Char (digitToInt)
 import Data.Foldable (Foldable (foldr'))
-import Data.List (foldl', sort)
+import Data.List (foldl', sort, transpose)
 
 -- ----------------------
 -- EXPORTED FUNCTIONS
 -- ----------------------
 d3p1 :: [String] -> IO ()
 d3p1 input = do
-  let gamma = gammaRate input
-  let epsilon = epsilonRate input
+  let bits = transpose input
+  let gamma = gammaRate bits
+  let epsilon = epsilonRate bits
+
   print $ gamma * epsilon
 
 d3p2 :: [String] -> IO ()
@@ -28,10 +30,10 @@ d3p2 input = do
 -- PART 1 MAIN FUNCTIONS
 -- ----------------------
 gammaRate :: [String] -> Int
-gammaRate bits = toDec $ map mostCommon $ mkBitGroups bits
+gammaRate bits = toDec $ map mostCommon bits
 
 epsilonRate :: [String] -> Int
-epsilonRate bits = toDec $ map leastCommon $ mkBitGroups bits
+epsilonRate bits = toDec $ map leastCommon bits
 
 -- ----------------------
 -- PART 2 MAIN FUNCTIONS
@@ -59,12 +61,6 @@ c02ScrubberRating i xs
 -- ----------------------
 -- HELPER FUNCTIONS
 -- ----------------------
-mkBitGroups :: [String] -> [String]
-mkBitGroups [] = []
-mkBitGroups bits = getFirstBits bits : mkBitGroups (filter (/= "") $ removeHeads bits)
-  where
-    getFirstBits = map head
-    removeHeads = map tail
 
 mostCommon :: Ord a => [a] -> a
 mostCommon = snd . last . result
