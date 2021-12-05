@@ -27,6 +27,7 @@ library
   exposed-modules:
       Input
       Solutions
+      Solutions.DayFive
       Solutions.DayFour
       Solutions.DayOne
       Solutions.DayThree
@@ -37,7 +38,9 @@ library
       src
   build-depends:
       base >=4.7 && <5
+    , containers
     , directory
+    , split
     , text
   default-language: Haskell2010
 

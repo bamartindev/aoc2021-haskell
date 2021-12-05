@@ -27,6 +27,8 @@ library:
   dependencies:
   - directory
   - text
+  - split
+  - containers
 
 executables:
   aoc2021-haskell-exe:

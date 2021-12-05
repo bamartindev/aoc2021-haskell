@@ -7,7 +7,7 @@ module Solutions.DayFour
   )
 where
 
-import Data.List
+import Data.List (find, transpose)
 import qualified Data.Text as T
 
 type Board = [[String]]
