@@ -5,9 +5,9 @@ module Solutions.DayFive
 where
 
 import Data.List.Split (splitOn)
--- Grabbed the idea to use Map to group the similar points after generation.
+-- Grabbed the idea from others to use Map to group the similar points after generation.
 -- Was trying to do a list comprehension and well....yeah that would have finished by
--- the time AoC 2022 is starting.
+-- the time AoC 2022 was starting.
 import qualified Data.Map.Strict as M
 
 d5p1 :: [String] -> IO ()
@@ -46,7 +46,7 @@ genPoints part l@(Line x1 y1 x2 y2)
   | y1 == y2 && x2 < x1 = zip [x2 .. x1] (repeat y1)
   | otherwise = case part of
     PartOne -> []
-    partTwo -> diag l
+    PartTwo -> diag l
 
 diag :: Line -> [Point]
 diag (Line x1 y1 x2 y2)
