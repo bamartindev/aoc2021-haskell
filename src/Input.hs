@@ -1,9 +1,11 @@
 module Input
   ( readFileByLines,
     readFileOfInts,
+    readCommaSeparatedInts,
   )
 where
 
+import Data.List.Split (splitOn)
 import System.Directory
 
 -- TODO (Brett) Maybe have this function return Either String (IO [String]) or something
@@ -22,3 +24,8 @@ readFileOfInts :: FilePath -> IO [Int]
 readFileOfInts f = do
   contents <- readFileByLines f
   pure $ map read contents
+
+readCommaSeparatedInts :: FilePath -> IO [Int]
+readCommaSeparatedInts f = do
+  contents <- readFileByLines f
+  pure $ map read $ splitOn "," (head contents)

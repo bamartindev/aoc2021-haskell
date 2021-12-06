@@ -27,7 +27,6 @@ d5p2 input = do
 type Point = (Int, Int)
 
 data Line = Line Int Int Int Int
-  deriving (Show)
 
 data Part = PartOne | PartTwo
 

@@ -98,4 +98,12 @@ runSolution solution = case solution of
     showSolutionMetadata solution
     input <- Input.readFileByLines "inputs/day-5.txt"
     Solutions.d5p2 input
+  (6, 1) -> do
+    showSolutionMetadata solution
+    input <- Input.readCommaSeparatedInts "inputs/day-6.txt"
+    Solutions.d6p1 input
+  (6, 2) -> do
+    showSolutionMetadata solution
+    input <- Input.readCommaSeparatedInts "inputs/day-6.txt"
+    Solutions.d6p2 input
   _ -> putStrLn $ "No solution implemented for day " ++ show (fst solution) ++ ", part" ++ show (snd solution)
