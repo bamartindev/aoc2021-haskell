@@ -4,37 +4,22 @@ module Solutions.DaySix
   )
 where
 
-import Data.Foldable (find)
-import qualified Data.Map.Strict as M
-
 d6p1 :: [Int] -> IO ()
-d6p1 input = do
-  print $ count $ simulate 80 (gatherFish input)
+d6p1 input = print $ sum $ sim 80 (mkFish input)
 
 d6p2 :: [Int] -> IO ()
-d6p2 input = do
-  print $ count $ simulate 256 (gatherFish input)
+d6p2 input = print $ sum $ sim 256 (mkFish input)
 
-gatherFish :: [Int] -> [(Int, Int)]
-gatherFish input = fishCounts $ zip input (repeat 1)
+count :: Eq a => a -> [a] -> Int
+count x = length . filter (== x)
 
-count :: [(Int, Int)] -> Int
-count f = sum $ map snd f
+mkFish :: [Int] -> [Int]
+mkFish input = [count x input | x <- [0 .. 8]]
 
-fishCounts :: (Ord k, Num a) => [(k, a)] -> [(k, a)]
-fishCounts fish = M.toList $ M.fromListWith (+) fish
+sim :: Int -> [Int] -> [Int]
+sim 0 f = f
+sim c f = sim (c - 1) (next f)
 
-simulate :: Int -> [(Int, Int)] -> [(Int, Int)]
-simulate 0 fish = fish
-simulate d fish = simulate (d - 1) (fishCounts next)
-  where
-    next = case new fish of
-      Just (_, c) -> (8, c) : map tick fish
-      Nothing -> map tick fish
-
-new :: [(Int, Int)] -> Maybe (Int, Int)
-new = find (\f -> fst f == 0)
-
-tick :: (Int, Int) -> (Int, Int)
-tick (0, c) = (6, c)
-tick (n, c) = (n - 1, c)
+next :: [Int] -> [Int]
+next [d0, d1, d2, d3, d4, d5, d6, d7, d8] = [d1, d2, d3, d4, d5, d6, d7 + d0, d8, d0]
+next _ = error "Need 9 elements in list"
