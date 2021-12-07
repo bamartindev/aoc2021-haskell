@@ -5,10 +5,10 @@ module Solutions.DaySix
 where
 
 d6p1 :: [Int] -> IO ()
-d6p1 input = print $ sum $ sim 80 (mkFish input)
+d6p1 input = print $ sim 80 (mkFish input)
 
 d6p2 :: [Int] -> IO ()
-d6p2 input = print $ sum $ sim 256 (mkFish input)
+d6p2 input = print $ sim 256 (mkFish input)
 
 count :: Eq a => a -> [a] -> Int
 count x = length . filter (== x)
@@ -16,9 +16,8 @@ count x = length . filter (== x)
 mkFish :: [Int] -> [Int]
 mkFish input = [count x input | x <- [0 .. 8]]
 
-sim :: Int -> [Int] -> [Int]
-sim 0 f = f
-sim c f = sim (c - 1) (next f)
+sim :: Int -> [Int] -> Int
+sim c f = sum $ iterate next f !! c
 
 next :: [Int] -> [Int]
 next [d0, d1, d2, d3, d4, d5, d6, d7, d8] = [d1, d2, d3, d4, d5, d6, d7 + d0, d8, d0]
