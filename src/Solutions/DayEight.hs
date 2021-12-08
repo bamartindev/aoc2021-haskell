@@ -74,7 +74,6 @@ mkSimpleMapping (Entry s o) = M.fromList $ filter (\x -> fst x /= -1) $ map m (s
       7 -> (8, p)
       _ -> (-1, p)
 
--- We can use 4 to determine 9
 findMap :: Entry -> Mapping -> Int -> (Int, Pattern)
 findMap (Entry s _) m 9 = (9, head [e | e <- s, length e == 6, e `fullyContains` M.findWithDefault "" 4 m])
 findMap (Entry s _) m 6 = (6, head [e | e <- s, length e == 6, not $ e `fullyContains` M.findWithDefault "" 7 m])
