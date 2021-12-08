@@ -27,6 +27,7 @@ library
   exposed-modules:
       Input
       Solutions
+      Solutions.DayEight
       Solutions.DayFive
       Solutions.DayFour
       Solutions.DayOne
