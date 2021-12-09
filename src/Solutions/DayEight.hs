@@ -16,63 +16,64 @@ d8p1 input = do
 d8p2 :: [String] -> IO ()
 d8p2 input = do
   let entries = map parseEntry input
-  print $ sum $ map calc entries
+  print $ sum $ map getOutput entries
 
 --------------
 -- Start P1
 --------------
 type Pattern = String
 
-data Entry = Entry
-  { signalPatterns :: [Pattern],
-    output :: [String]
-  }
-  deriving (Show)
+type Entry = ([Pattern], [Pattern])
 
 parseEntry :: String -> Entry
-parseEntry e = Entry patterns' output'
+parseEntry e = (patterns', output')
   where
     [patterns, output] = splitOn " | " e
     patterns' = splitOn " " patterns
     output' = splitOn " " output
 
 countEasy :: Entry -> Int
-countEasy (Entry _ output) = length $ filter (\x -> length x `elem` [2, 3, 4, 7]) output
+countEasy (_, output) = length $ filter (\x -> length x `elem` [2, 3, 4, 7]) output
 
 --------------
--- Start P2
---------------
-calc :: Entry -> Int
-calc (Entry p o) = foldl addDigit 0 $ map (decode' mapped) o
+-- Part 2
+-- --------------
+getOutput :: Entry -> Int
+getOutput (patterns, output) = foldl addDigit 0 $ map (decode patterns) output
   where
     addDigit n d = 10 * n + d
-    mapped = map (getPattern p) [0 .. 9]
 
-decode' :: [Pattern] -> Pattern -> Int
-decode' ps p = case findIndex f ps of
-  Just i -> i
-  Nothing -> error "Couldn't find the pattern in the list of patterns"
+decode :: [Pattern] -> Pattern -> Int
+decode ps p = case length p of
+  2 -> 1
+  3 -> 7
+  4 -> 4
+  5 -> fiveSegment ps p
+  6 -> sixSegment ps p
+  7 -> 8
+  n -> error $ "Cannot decode length " ++ show n
   where
-    f a = sort p == sort a
+    fiveSegment ps p
+      | contains (getKnown 1 ps) p = 3
+      | contains (diff4' ps) p = 5
+      | otherwise = 2
+    sixSegment ps p
+      | contains (getKnown 4 ps) p = 9
+      | contains (diff4' ps) p = 6
+      | otherwise = 0
 
-getPattern :: [Pattern] -> Int -> Pattern
-getPattern p 0 = head $ filter (\x -> length x == 6 && x `notElem` [getPattern p 6, getPattern p 9]) p
-getPattern p 1 = getSimple p 2
-getPattern p 2 = head $ filter (\x -> length x == 5 && x `notElem` [getPattern p 3, getPattern p 5]) p
-getPattern p 3 = head $ filter (matchPattern (getPattern p 1) 5) p
-getPattern p 4 = getSimple p 4
-getPattern p 5 = head $ filter (matchPattern (diff4 p) 5) p
-getPattern p 6 = head $ filter (\x -> x /= getPattern p 9 && matchPattern (diff4 p) 6 x) p
-getPattern p 7 = getSimple p 3
-getPattern p 8 = getSimple p 7
-getPattern p 9 = head $ filter (matchPattern (getPattern p 4) 6) p
-getPattern _ _ = error "Cannot find pattern"
+contains :: (Eq a) => [a] -> [a] -> Bool
+contains a b = a `intersect` b == a
 
-matchPattern :: Pattern -> Int -> (Pattern -> Bool)
-matchPattern val len x = length x == len && (val `intersect` x == val)
+getKnown :: Int -> [Pattern] -> Pattern
+getKnown 1 ps = head $ filterByLen 2 ps
+getKnown 4 ps = head $ filterByLen 4 ps
+getKnown 7 ps = head $ filterByLen 3 ps
+getKnown 8 ps = head $ filterByLen 7 ps
+getKnown n _ = error $ " Unknow pattern for number: " ++ show n
 
-getSimple :: [Pattern] -> Int -> Pattern
-getSimple p len = head $ filter (\x -> length x == len) p
+filterByLen :: Int -> [Pattern] -> [Pattern]
+filterByLen len = filter (\x -> length x == len)
 
-diff4 :: [Pattern] -> Pattern
-diff4 p = getPattern p 4 \\ getPattern p 1
+diff4' :: [Pattern] -> Pattern
+diff4' ps = getKnown 4 ps \\ getKnown 1 ps
