@@ -8,6 +8,7 @@ where
 import Solutions.DayEight as Export
 import Solutions.DayFive as Export
 import Solutions.DayFour as Export
+import Solutions.DayNine as Export
 import Solutions.DayOne as Export
 import Solutions.DaySeven as Export
 import Solutions.DaySix as Export
