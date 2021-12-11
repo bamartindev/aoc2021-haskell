@@ -5,6 +5,7 @@ module Solutions
   )
 where
 
+import Solutions.Day11 as Export
 import Solutions.DayEight as Export
 import Solutions.DayFive as Export
 import Solutions.DayFour as Export
