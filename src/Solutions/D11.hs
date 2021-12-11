@@ -1,4 +1,4 @@
-module Solutions.Day11 where --(d11p1, d11p2,) where
+module Solutions.D11 (d11p1, d11p2) where
 
 import Data.Char (digitToInt)
 import Data.List (findIndex, foldl')

@@ -1,6 +1,6 @@
 {-# LANGUAGE ViewPatterns #-}
 
-module Solutions.DayTwo
+module Solutions.D02
   ( d2p1,
     d2p2,
   )

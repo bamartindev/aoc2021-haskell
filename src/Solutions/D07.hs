@@ -1,4 +1,4 @@
-module Solutions.DaySeven
+module Solutions.D07
   ( d7p1,
     d7p2,
   )

@@ -1,4 +1,4 @@
-module Solutions.DayNine
+module Solutions.D09
   ( d9p1,
     d9p2,
   )

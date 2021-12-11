@@ -1,4 +1,4 @@
-module Solutions.DayFive
+module Solutions.D05
   ( d5p1,
     d5p2,
   )

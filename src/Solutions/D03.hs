@@ -1,4 +1,4 @@
-module Solutions.DayThree
+module Solutions.D03
   ( d3p1,
     d3p2,
   )

@@ -1,4 +1,4 @@
-module Solutions.DayOne
+module Solutions.D01
   ( d1p1,
     d1p2,
   )

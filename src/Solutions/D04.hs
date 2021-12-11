@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Solutions.DayFour
+module Solutions.D04
   ( d4p1,
     d4p2,
     findNumPos,

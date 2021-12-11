@@ -1,4 +1,4 @@
-module Solutions.DayTen
+module Solutions.D10
   ( d10p1,
     d10p2,
   )

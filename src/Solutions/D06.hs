@@ -1,4 +1,4 @@
-module Solutions.DaySix
+module Solutions.D06
   ( d6p1,
     d6p2,
   )

@@ -5,14 +5,14 @@ module Solutions
   )
 where
 
-import Solutions.Day11 as Export
-import Solutions.DayEight as Export
-import Solutions.DayFive as Export
-import Solutions.DayFour as Export
-import Solutions.DayNine as Export
-import Solutions.DayOne as Export
-import Solutions.DaySeven as Export
-import Solutions.DaySix as Export
-import Solutions.DayTen as Export
-import Solutions.DayThree as Export
-import Solutions.DayTwo as Export
+import Solutions.D01 as Export
+import Solutions.D02 as Export
+import Solutions.D03 as Export
+import Solutions.D04 as Export
+import Solutions.D05 as Export
+import Solutions.D06 as Export
+import Solutions.D07 as Export
+import Solutions.D08 as Export
+import Solutions.D09 as Export
+import Solutions.D10 as Export
+import Solutions.D11 as Export

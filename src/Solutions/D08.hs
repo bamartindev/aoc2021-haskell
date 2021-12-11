@@ -1,4 +1,4 @@
-module Solutions.DayEight
+module Solutions.D08
   ( d8p1,
     d8p2,
   )

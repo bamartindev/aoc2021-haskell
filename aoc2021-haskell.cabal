@@ -27,17 +27,17 @@ library
   exposed-modules:
       Input
       Solutions
-      Solutions.Day11
-      Solutions.DayEight
-      Solutions.DayFive
-      Solutions.DayFour
-      Solutions.DayNine
-      Solutions.DayOne
-      Solutions.DaySeven
-      Solutions.DaySix
-      Solutions.DayTen
-      Solutions.DayThree
-      Solutions.DayTwo
+      Solutions.D01
+      Solutions.D02
+      Solutions.D03
+      Solutions.D04
+      Solutions.D05
+      Solutions.D06
+      Solutions.D07
+      Solutions.D08
+      Solutions.D09
+      Solutions.D10
+      Solutions.D11
   other-modules:
       Paths_aoc2021_haskell
   hs-source-dirs:
