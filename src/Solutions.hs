@@ -16,3 +16,4 @@ import Solutions.D08 as Export
 import Solutions.D09 as Export
 import Solutions.D10 as Export
 import Solutions.D11 as Export
+import Solutions.D12 as Export
