@@ -11,12 +11,12 @@ import qualified Util
 d13p1 :: [String] -> IO ()
 d13p1 input = do
   let (points, folds) = parseInput input
-  print $ length $ fold [head folds] points
+  print $ length $ fold points [head folds]
 
 d13p2 :: [String] -> IO ()
 d13p2 input = do
   let (points, folds) = parseInput input
-  printCode $ fold folds points
+  printCode $ fold points folds
 
 type PointSet = S.Set (Int, Int)
 
@@ -32,29 +32,17 @@ parsePoints ps = S.fromList $ map (\p -> let [x, y] = splitOn "," p in (read x, 
 parseFolds :: [String] -> [Fold]
 parseFolds = map intoFold
   where
-    intoFold p =
-      let [_, _, dir] = words p
-       in case splitOn "=" dir of
-            ["x", n] -> X (read n)
-            ["y", n] -> Y (read n)
-            _ -> error "Parse error on fold"
+    intoFold p = case splitOn "=" (last $ words p) of
+      ["x", n] -> X (read n)
+      ["y", n] -> Y (read n)
+      _ -> error "Parse error on fold"
 
-fold :: [Fold] -> PointSet -> PointSet
-fold fs ps = foldl (flip applyFold) ps fs
+fold :: PointSet -> [Fold] -> PointSet
+fold = foldl applyFold
 
-applyFold :: Fold -> PointSet -> PointSet
-applyFold f@(X n) ps = bulkInsert (map (\(x, y) -> (n - (x - n), y)) (foldedPoints f ps)) (bulkDelete (foldedPoints f ps) ps)
-applyFold f@(Y n) ps = bulkInsert (map (\(x, y) -> (x, n - (y - n))) (foldedPoints f ps)) (bulkDelete (foldedPoints f ps) ps)
-
-foldedPoints :: Fold -> PointSet -> [(Int, Int)]
-foldedPoints (X n) m = S.toList $ S.filter (\(x, _) -> x > n) m
-foldedPoints (Y n) m = S.toList $ S.filter (\(_, y) -> y > n) m
-
-bulkInsert :: [(Int, Int)] -> PointSet -> PointSet
-bulkInsert xs p = foldl (flip S.insert) p xs
-
-bulkDelete :: [(Int, Int)] -> PointSet -> PointSet
-bulkDelete xs p = foldl (flip S.delete) p xs
+applyFold :: PointSet -> Fold -> PointSet
+applyFold ps f@(X n) = S.map (\p@(x, y) -> if x > n then (n - (x - n), y) else p) ps
+applyFold ps f@(Y n) = S.map (\p@(x, y) -> if y > n then (x, n - (y - n)) else p) ps
 
 printCode :: PointSet -> IO ()
 printCode ps = do
