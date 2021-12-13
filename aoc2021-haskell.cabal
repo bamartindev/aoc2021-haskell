@@ -39,6 +39,8 @@ library
       Solutions.D10
       Solutions.D11
       Solutions.D12
+      Solutions.D13
+      Util
   other-modules:
       Paths_aoc2021_haskell
   hs-source-dirs:
