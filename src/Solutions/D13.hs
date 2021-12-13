@@ -24,13 +24,10 @@ data Fold = X Int | Y Int
   deriving (Show)
 
 parseInput :: [String] -> (PointSet, [Fold])
-parseInput input = (parsePoints ps, parseFolds fs)
-  where
-    ps = takeWhile (/= "") input
-    fs = tail $ dropWhile (/= "") input
+parseInput input = let [ps, fs] = splitOn [""] input in (parsePoints ps, parseFolds fs)
 
 parsePoints :: [String] -> PointSet
-parsePoints ps = S.fromList $ map (\p -> let [x, y] = splitOn "," p in (read x :: Int, read y :: Int)) ps
+parsePoints ps = S.fromList $ map (\p -> let [x, y] = splitOn "," p in (read x, read y)) ps
 
 parseFolds :: [String] -> [Fold]
 parseFolds = map intoFold
